@@ -33,9 +33,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   webshop_analytics:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    +materialized: view
 
 seeds:
   webshop_analytics:
@@ -45,4 +43,3 @@ seeds:
       customer_name: string
       email: string
       signup_date: date
-      

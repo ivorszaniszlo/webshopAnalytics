@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with orders as (
     select * from {{ ref('stg_orders') }}
 ),
@@ -10,7 +12,7 @@ order_summary as (
     select
         o.customer_id,
         count(o.order_id) as total_orders,
-        sum(o.order_value_cents) / 100.0 as total_spent_usd
+        {{ cents_to_dollars("sum(o.order_value_cents)") }} as total_spent_usd
     from orders o
     group by o.customer_id
 )

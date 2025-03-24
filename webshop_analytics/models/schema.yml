@@ -2,46 +2,73 @@ version: 2
 
 seeds:
   - name: customers
-    description: "List of webshop customers"
+    description: "A CSV seed file containing basic information about webshop customers."
     columns:
       - name: customer_id
+        description: "Unique identifier of the customer."
         tests: [not_null, unique]
       - name: customer_name
+        description: "Full name of the customer."
         tests: [not_null]
       - name: email
+        description: "Email address of the customer."
         tests: [not_null]
+      - name: signup_date
+        description: "The date when the customer registered on the webshop."
 
   - name: orders
-    description: "Order transactions from the webshop"
+    description: "A CSV seed file containing individual webshop orders linked to customers."
     columns:
       - name: order_id
+        description: "Unique identifier of the order."
         tests: [not_null, unique]
       - name: customer_id
+        description: "Foreign key referencing the customer who made the order."
         tests: [not_null]
+      - name: order_date
+        description: "Date when the order was placed."
       - name: order_value_cents
+        description: "Total value of the order in cents."
         tests: [not_null]
 
 models:
   - name: stg_customers
-    description: "Staged customers data"
+    description: "Cleaned and typed customer data from the 'customers' seed source."
     columns:
       - name: customer_id
+        description: "Customer ID."
         tests: [not_null, unique]
       - name: customer_name
+        description: "Customer's name."
         tests: [not_null]
+      - name: email
+        description: "Customer's email address."
+      - name: signup_date
+        description: "Signup date, converted to DATE type."
 
   - name: stg_orders
-    description: "Staged orders data"
+    description: "Cleaned and typed order data from the 'orders' seed source."
     columns:
       - name: order_id
+        description: "Order ID."
         tests: [not_null, unique]
       - name: customer_id
+        description: "ID of the customer who placed the order."
         tests: [not_null]
+      - name: order_date
+        description: "Date of the order."
+      - name: order_value_cents
+        description: "Order value in cents."
 
   - name: customer_orders_summary
-    description: "Aggregated order data by customer"
+    description: "Aggregated view of customer order activity including total number of orders and total amount spent."
     columns:
       - name: customer_id
+        description: "Customer ID (joined from staging)."
         tests: [not_null]
+      - name: customer_name
+        description: "Name of the customer."
       - name: total_orders
+        description: "Number of orders the customer has placed."
       - name: total_spent_usd
+        description: "Total order value in USD, aggregated from cents."
