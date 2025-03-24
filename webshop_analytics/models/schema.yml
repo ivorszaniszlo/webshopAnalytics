@@ -1,4 +1,4 @@
-version: 2
+version: 3
 
 seeds:
   - name: customers
@@ -72,3 +72,21 @@ models:
         description: "Number of orders the customer has placed."
       - name: total_spent_usd
         description: "Total order value in USD, aggregated from cents."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "total_spent_usd >= 0"
+
+  - name: fact_orders_incremental
+    description: "Incremental fact table containing cleaned order data with order value converted to USD."
+    columns:
+      - name: order_id
+        description: "Unique identifier of the order."
+        tests: [not_null, unique]
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        tests: [not_null]
+      - name: order_date
+        description: "Date when the order was placed."
+      - name: order_value_usd
+        description: "Value of the order in USD, converted from cents."
