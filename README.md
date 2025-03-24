@@ -51,6 +51,32 @@ The purpose is to show how dbt can be used for local analytics development quick
   ```bash
   pip install dbt-core dbt-duckdb
   ```
+* Initialize dbt project:
+  ```bash
+  dbt init webshop_analytics
+  ```
+* Create the `profiles.yml` file in the following location:
+  ```
+  C:\Users\<your-username>\.dbt\profiles.yml
+  ```
+
+  Paste this content:
+  ```yaml
+  webshop_analytics:
+    outputs:
+      dev:
+        type: duckdb
+        path: dev.duckdb
+        threads: 1
+
+      prod:
+        type: duckdb
+        path: prod.duckdb
+        threads: 4
+
+    target: dev
+  ```
+
 * Load and run the project:
   ```bash
   dbt seed

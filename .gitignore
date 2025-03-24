@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# dbt artifacts
+dbt_modules/
+dbt_packages/
+target/
+logs/
+
+# Virtual environment
+dbt-env/
+.env/
+.venv/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# User-specific files
+*.log
+*.db
+*.duckdb
+*.sqlite
+
+# VSCode
+.vscode/
+
+# MacOS
+._*
