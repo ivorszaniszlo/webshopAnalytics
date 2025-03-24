@@ -4,6 +4,7 @@
 # name or the intended use of these models
 name: 'webshop_analytics'
 version: '1.0.0'
+config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'webshop_analytics'
@@ -12,6 +13,7 @@ profile: 'webshop_analytics'
 # The `model-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
+seed-paths: ["seeds"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
@@ -34,3 +36,13 @@ models:
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: view
+
+seeds:
+  webshop_analytics:
+    +quote_columns: false
+    +column_types:
+      customer_id: integer
+      customer_name: string
+      email: string
+      signup_date: date
+      

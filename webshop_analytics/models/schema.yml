@@ -1,0 +1,47 @@
+version: 2
+
+seeds:
+  - name: customers
+    description: "List of webshop customers"
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: customer_name
+        tests: [not_null]
+      - name: email
+        tests: [not_null]
+
+  - name: orders
+    description: "Order transactions from the webshop"
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+      - name: order_value_cents
+        tests: [not_null]
+
+models:
+  - name: stg_customers
+    description: "Staged customers data"
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: customer_name
+        tests: [not_null]
+
+  - name: stg_orders
+    description: "Staged orders data"
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: customer_orders_summary
+    description: "Aggregated order data by customer"
+    columns:
+      - name: customer_id
+        tests: [not_null]
+      - name: total_orders
+      - name: total_spent_usd
